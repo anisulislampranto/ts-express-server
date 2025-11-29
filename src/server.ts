@@ -6,7 +6,7 @@ const port = 5000
 // parser
 app.use(express.json())
 // for formData 
-// app.use(express.urlencoded())
+// app.use(express.urlencoded())/
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!')
