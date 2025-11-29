@@ -1,7 +1,13 @@
 import express, { Request, Response } from 'express'
+import {Pool} from "pg"
+require('dotenv').config()
+
 const app = express()
 const port = 5000
 
+const pool = new Pool({
+    connectionString: process.env.psql
+})
 
 // parser
 app.use(express.json())
