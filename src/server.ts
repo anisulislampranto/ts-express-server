@@ -37,7 +37,7 @@ const initDB = async() => {
             completed BOOLEAN DEFAULT false,
             due_date DATE,
             created_at TIMESTAMP DEFAULT NOW(), 
-            updated_ai TIMESTAMP DEFAULT NOW()
+            updated_at TIMESTAMP DEFAULT NOW()
         )
     `)
 
@@ -65,6 +65,26 @@ app.post('/api/users', async(req: Request, res: Response) => {
             success: true,
             message: 'data inserted',
             data: result.rows[0]
+        })
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+    
+    
+})
+
+app.get('/api/users/', async(req: Request, res: Response) => {
+    try {
+        const result = await pool.query(`SELECT * FROM users`)
+
+        res.status(201).json({
+            success: true,
+            message: 'data inserted',
+            data: result.rows
         })
 
     } catch (error: any) {
