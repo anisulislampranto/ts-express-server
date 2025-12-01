@@ -83,8 +83,37 @@ app.get('/api/users/', async(req: Request, res: Response) => {
 
         res.status(201).json({
             success: true,
-            message: 'data inserted',
+            message: 'all data fetched',
             data: result.rows
+        })
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+    
+    
+})
+
+app.get('/api/users/:id', async(req: Request, res: Response) => {
+    const {id}  = req.params;
+
+    try {
+        const result = await pool.query(`SELECT * FROM users WHERE id=$1`, [id])
+
+        if (result.rows.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: 'user not found',
+            })
+        }
+
+        res.status(201).json({
+            success: true,
+            message: 'data fetched',
+            data: result.rows[0]
         })
 
     } catch (error: any) {
