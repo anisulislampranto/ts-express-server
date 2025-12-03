@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from 'express'
-import {Pool} from "pg"
 import config from './config'
 import initDB from './config/db';
 
