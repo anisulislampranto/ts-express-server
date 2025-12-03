@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
 import config from './config'
-import initDB from './config/db';
+import initDB, { pool } from './config/db';
+import logger from './middleware/logger';
 
 const app = express()
 const port = config.port;
@@ -12,11 +13,6 @@ initDB()
 app.use(express.json())
 // for formData 
 // app.use(express.urlencoded())/
-
-const logger  = (req: Request, res: Response, next: NextFunction) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}\n`);
-    next();
-}
 
 app.get('/', logger, (req: Request, res: Response) => {
     res.send('Hello World!')
